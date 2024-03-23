@@ -34,17 +34,18 @@ def test_add_group(app): # это объект созданый фикстуро
     # ↓ в методе передаются явные значения параметров username и password
     # эти параметры были созданы в несгруппированных методах, конкретно в login
     # добавляется app т.к. эты функция  обращается к функции application
-    app.login(username ="admin",password ="secret")
+    app.session.login(username ="admin",password ="secret")
+    # ↑ добавлен session потомучто функция раскрыта в помощнике session
     # Создание объекта типа Group ↓ ( в скобках это параметры объекта передаваемые в его конструктор в папке group)
     # и поскольку объект Group в отдельном файле group, вначале этого файла делается импорт
     app.create_group(Group(name = "группа 2" ,header ="444",footer ="555"))
-    app.logout()
+    app.session.logout() # ↑ добавлен session потомучто функция раскрыта в помощнике session
 
   # ВТОРОЙ СЦЕНАРИЙ (из сгруппированых методов) с пустыми значениями в create_group
 def test_add_empty_group(app):
-    app.login(username="admin", password="secret") # login это метод ( в скобках параметры этого метода)
+    app.session.login(username="admin", password="secret") # login это метод ( в скобках параметры этого метода)
     app.create_group(Group(name="", header="", footer=""))
-    app.logout()
+    app.session.logout()
 
 
   
