@@ -1,4 +1,4 @@
-# Класс, помощник по работе с сессиями
+# Класс, помощник по работе с сессиями, вспомагательные методы
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
