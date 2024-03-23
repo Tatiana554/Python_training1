@@ -2,8 +2,8 @@
 # конструкторы импорт указывают какие используются классы из внешних библиотек ↓
 import pytest
 import json
-from group import Group # импортирвание класса из другой папки group
-from application import Application # импорт класса из папки для запуски браузера
+from model.group import Group # импортирвание класса из другой папки group
+from fixture.application import Application # импорт класса из папки для запуски браузера
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
