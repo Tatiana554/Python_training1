@@ -1,4 +1,5 @@
 # класс, вспомагательные методы которые относятся к работе с группами в addbook
+from selenium.webdriver.common.by import By
 
 class GroupHelper:
 
@@ -33,3 +34,13 @@ class GroupHelper:
     def open_groups_page(self):
         # открывается страница с гуппами
         self.driver.find_element(By.LINK_TEXT, "groups").click()
+
+
+    def delete_first_group(self):
+        self.driver = self.app.driver  # доступ к драйверу, потомучто в Application есть конструктор для запука драйвера ???
+        self.open_groups_page()
+        # select first group   выбрать первую группу
+        self.driver.find_element(By.NAME, "selected[]").click()
+        # submit deletion      удалить группу
+        self.driver.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page() # возврат на страницу с группами, как на фронте

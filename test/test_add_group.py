@@ -10,24 +10,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-@pytest.fixture # метка превращает функцию в инициализатор фикстуры
-def app(request):  # эта функция инициализиует фикстуру
-    fixture = Application() # эта функция будет создаваь фикстуру, то есть объект Application
-    request.addfinalizer(fixture.destroy) # параметр request c методом addfinalizer (внутри функция для разрушения фикстуы
-    # ↑ distroy эта функция которая передается в качестве параметра из папки application
-    return fixture  # возвращает фикстуру
-
-# class Testaddgroup(): # всё ниже это методы  класса Testaddgroup
-  # метод это функция которая находится внутри класса
-  # у такой функции всегда должен быть спец параметр self - это объект в котором вызывается метод
-# def setup_method(self, method): # функция инициализации, подготовки, она выполняется перед тестовым методом
-
-# self.app = Application () # запуск браузера из метода (из папки)
-
-  
-# def teardown_method(self, method): # функция завершения которая выполняется после тестового метода
-# self.app.destroy() # метод для закрытия браузера из функции application
-
 
   # тестовые МЕТОДЫ ↓ созданные через refactor, они позволяютя сгруппировать и скоратить тестовый сценарий (шаги)
 def test_add_group(app): # это объект созданый фикстурой

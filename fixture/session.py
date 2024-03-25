@@ -1,10 +1,9 @@
 # Класс, помощник по работе с сессиями, вспомагательные методы
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class SessionHelper:
 
-    def __init__ (self, app): # конструктор. Вкачетсве парамметра принимает ссылку на Application (app - фикстура)
+    def __init__ (self, app): # конструктор. В качетсве парамметра принимает ссылку на Application (app - фикстура)
         self.app = app
 
 
