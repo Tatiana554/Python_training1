@@ -11,7 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-@pytest.fixture (scope = "session") # метка превращает функцию в инициализатор фикстуры
+@pytest.fixture(scope = "session") # метка превращает функцию в инициализатор фикстуры
 def app(request):  # эта функция инициализиует фикстуру
     fixture = Application()  # эта функция будет создаваь фикстуру, то есть объект в Application
     request.addfinalizer(fixture.destroy)  # параметр request c методом addfinalizer (внутри функция для разрушения фикстуы
