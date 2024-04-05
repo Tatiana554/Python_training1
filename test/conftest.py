@@ -11,10 +11,36 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-@pytest.fixture(scope = "session") # метка превращает функцию в инициализатор фикстуры
+fixture = None
+
+
+@pytest.fixture # метка превращает функцию в инициализатор фикстуры
 def app(request):  # эта функция инициализиует фикстуру
-    fixture = Application()  # эта функция будет создаваь фикстуру, то есть объект в Application
-    request.addfinalizer(fixture.destroy)  # параметр request c методом addfinalizer (внутри функция для разрушения фикстуы
+    global fixture
+    # Метод валидности фикстуры перед каждым тестом
+    if fixture is None:
+        fixture = Application()  # эта функция будет создаваь фикстуру, то есть объект в Application
+    # ↓ в методе передаются явные значения параметров username и password
+    # эти параметры были созданы в несгруппированных методах, конкретно в login
+    # добавляется fixture т.к. эты функция  обращается к функции application
+    # лоинимя для всех тестов
+        fixture.session.login(username="admin", password="secret")
+    else:
+         if not fixture.is_valid():
+             fixture = Application()
+             fixture.session.login(username="admin", password="secret")
+    return fixture  # возвращает фикстуру
+
+
+''' Закрывающая фикстура, выполняется один раз в конце'''
+@pytest.fixture(scope = "session", autouse = True) # autouse  для автоматического выполнения фикстуры, т.к. она явно в методе не прописана
+def stop (request):
+    # ↓ логаут для всех тестов
+    def fin ():
+        fixture.session.logout() # добавлен session потомучто функция раскрыта в помощнике session
+        fixture.destroy()
+    # ↑ добавлен session потомучто функция раскрыта в помощнике session
+    request.addfinalizer(fin)  # параметр request c методом addfinalizer (внутри функция для разрушения фикстуы
     # ↑ distroy эта функция которая передается в качестве параметра из папки application
     return fixture  # возвращает фикстуру
 

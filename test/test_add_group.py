@@ -2,7 +2,7 @@
 # конструкторы импорт указывают какие используются классы из внешних библиотек ↓
 import pytest
 import json
-from model.group import Group # импортирвание класса из другой папки group
+from model.group import Group
 from fixture.application import Application # импорт класса из папки для запуски браузера
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -11,23 +11,17 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
+
   # тестовые МЕТОДЫ ↓ созданные через refactor, они позволяютя сгруппировать и скоратить тестовый сценарий (шаги)
 def test_add_group(app): # это объект созданый фикстурой
-    # ↓ в методе передаются явные значения параметров username и password
-    # эти параметры были созданы в несгруппированных методах, конкретно в login
-    # добавляется app т.к. эты функция  обращается к функции application
-    app.session.login(username ="admin",password ="secret")
-    # ↑ добавлен session потомучто функция раскрыта в помощнике session
     # Создание объекта типа Group ↓ ( в скобках это параметры объекта передаваемые в его конструктор в папке group)
     # и поскольку объект Group в отдельном файле group, вначале этого файла делается импорт
     app.group.create(Group(name ="группа 2", header ="444", footer ="555"))
-    app.session.logout() # ↑ добавлен session потомучто функция раскрыта в помощнике session
 
   # ВТОРОЙ СЦЕНАРИЙ (из сгруппированых методов) с пустыми значениями в create_group
 def test_add_empty_group(app):
-    app.session.login(username="admin", password="secret") # login это метод ( в скобках параметры этого метода)
     app.group.create(Group(name="", header="", footer=""))
-    app.session.logout()
+
 
 
 
