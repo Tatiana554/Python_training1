@@ -74,3 +74,11 @@ class GroupHelper:
         self.driver = self.app.driver
         self.driver.find_element(By.LINK_TEXT, "group page").click()
 
+    # функция для подсчета количства групп на странице
+    def count(self):
+        self.driver = self.app.driver
+        # ↓ отерыть страницу с группами
+        self.open_groups_page()
+        # len считает длинну списка и ворачивает (return) ее , ↓ поиск чекбоксов (возле групп) с именем selected[]
+        return len (self.driver.find_elements(By.NAME, "selected[]"))
+

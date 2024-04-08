@@ -16,7 +16,7 @@ class SessionHelper:
     def login(self, username, password):
         # логинимся
         self.driver = self.app.driver  # доступ к драйверу, потомучто в Application есть конструктор для запука драйвера ???
-        wait = WebDriverWait(self.driver, 60)
+        wait = WebDriverWait(self.driver, 5)
         self.app.open_home_page()  # добавлен "app" потомучто  метод open_home_page остается в фикстуре Application
         self.driver.set_window_size(1232, 1043)
         wait.until(EC.element_to_be_clickable((By.NAME, "user"))).click()
