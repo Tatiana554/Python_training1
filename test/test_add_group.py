@@ -14,13 +14,19 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
   # тестовые МЕТОДЫ ↓ созданные через refactor, они позволяютя сгруппировать и скоратить тестовый сценарий (шаги)
 def test_add_group(app): # это объект созданый фикстурой
+    old_groups = app.group.get_group_list()  # сохранение старого списка групп
     # Создание объекта типа Group ↓ ( в скобках это параметры объекта передаваемые в его конструктор в папке group)
     # и поскольку объект Group в отдельном файле group, вначале этого файла делается импорт
     app.group.create(Group(name ="группа 2", header ="444", footer ="555"))
+    new_groups = app.group.get_group_list()  # новый список групп
+    assert len(old_groups) + 1 == len(new_groups)  # сравнение размера старого списка групп с новым; истиный список групп == длине нового списка
 
   # ВТОРОЙ СЦЕНАРИЙ (из сгруппированых методов) с пустыми значениями в create_group
 def test_add_empty_group(app):
+    old_groups = app.group.get_group_list()
     app.group.create(Group(name="", header="", footer=""))
+    new_groups = app.group.get_group_list()  # новый список групп
+    assert len(old_groups) +1 == len(new_groups)
 
 
 

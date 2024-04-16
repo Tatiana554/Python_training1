@@ -1,6 +1,6 @@
 # класс, вспомагательные методы которые относятся к работе с группами в addbook
 from selenium.webdriver.common.by import By
-
+from model.group import Group
 
 class GroupHelper:
 
@@ -86,3 +86,21 @@ class GroupHelper:
         self.open_groups_page()
         # len считает длинну списка и ворачивает (return) ее , ↓ поиск чекбоксов (возле групп) с именем selected[]
         return len(self.driver.find_elements(By.NAME, "selected[]"))
+
+
+    # функция для получения размера списков групп
+    def get_group_list(self):
+        self.driver = self.app.driver
+        self.open_groups_page()
+        groups = []
+        # ↓ span.group элемент в котором находится имя группы, находим все такие элементы
+        elements = self.driver.find_elements(By.CSS_SELECTOR, "span.group")
+        for element in elements:
+            text = element.text # получаем текст элемента
+            # id группы, хранится в чекбоксе value
+            # внутри элемента span находим элемент selected, далее получаем значение атрибута value
+            id = element.find_elements(By.NAME, "selected[]")[0].get_attribute("value") # [0] это выбор первого элемента из списка
+            # ↓ далее создаем новый объект (список) groups
+            groups.append(Group(name = text, id = id))
+        return groups
+
