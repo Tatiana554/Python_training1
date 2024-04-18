@@ -11,6 +11,14 @@ class Group: # Group это название класса
       self.footer = footer
       self.id = id
 
+# функция определяющая как выглядят объекты в группе
+  def __repr__(self):
+      return "%s:%s" % (self.id, self.name)
+
+# для логического сравнения групп, other это параметр который сравнивается с текущим объектом
+  def __eq__(self, other):
+      return self.id == other.id and self.name == other.name
+
 
 
 
